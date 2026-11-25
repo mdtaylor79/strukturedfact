@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Struktured Facts — Official Site</title>
+  <meta name="description" content="Official website of Struktured Facts. New album TIERS out now on Purpose Wave Entertainment." />
+  <meta property="og:title" content="Struktured Facts — Official Site" />
+  <meta property="og:description" content="New album TIERS out now on Purpose Wave Entertainment." />
+  <meta property="og:image" content="strukturedfacts_hero.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800;900&family=Archivo:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ============================================================
+       TOKENS — terracotta, concrete & shade, pulled from the hero
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --clay:      #d19a35;   /* gold, from the OBSERVATIONS lettering */
+      --clay-lt:   #e8b95a;
+      --clay-dk:   #8a6420;
+      --sand:      #efe2d0;   /* concrete in the light */
+      --stone:     #a8937e;
+      --shade:     #1b120d;   /* deep shadow brown */
+      --shade-2:   #23170f;
+      --shade-3:   #2e1f15;
+      --leaf:      #8a9a4b;   /* planter green, used sparingly */
+      --line:      rgba(239,226,208,.12);
+      --nav-h:     74px;
+      --display:   'Big Shoulders Display', 'Arial Narrow', sans-serif;
+      --body:      'Archivo', system-ui, sans-serif;
+      --mono:      'IBM Plex Mono', ui-monospace, monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--shade);
+      color: var(--sand);
+      font-family: var(--body);
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    :focus-visible { outline: 2px solid var(--clay-lt); outline-offset: 3px; }
+
+    .mono {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 44px;
+      z-index: 1000;
+      transition: background .35s ease, border-color .35s ease;
+      border-bottom: 1px solid transparent;
+    }
+    nav.solid {
+      background: rgba(27,18,13,.95);
+      backdrop-filter: blur(10px);
+      border-bottom-color: rgba(209,154,53,.22);
+    }
+
+    .logo {
+      display: flex; align-items: center; gap: 12px;
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 24px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    /* three stacked bars = tiers */
+    .logo-mark { display: grid; gap: 3px; }
+    .logo-mark i { display: block; height: 4px; background: var(--clay); }
+    .logo-mark i:nth-child(1) { width: 10px; }
+    .logo-mark i:nth-child(2) { width: 17px; }
+    .logo-mark i:nth-child(3) { width: 24px; }
+    .logo span.k { color: var(--clay); }
+
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--clay-lt); }
+
+    .nav-right { display: flex; align-items: center; gap: 18px; }
+    .nav-socials { display: flex; gap: 16px; }
+    .nav-socials a { display: flex; transition: color .2s; }
+    .nav-socials a:hover { color: var(--clay-lt); }
+    .nav-socials svg, .footer-socials svg { width: 17px; height: 17px; fill: currentColor; }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: 0; padding: 6px; cursor: pointer;
+    }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--sand); transition: transform .3s, opacity .3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    #home {
+      position: relative;
+      height: 100vh;
+      min-height: 680px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('strukturedfacts_hero.jpg') 62% center / cover no-repeat;
+      transform: scale(1.04);
+      animation: settle 2.4s cubic-bezier(.2,.7,.2,1) forwards;
+    }
+    @keyframes settle { to { transform: scale(1); } }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(90deg, rgba(27,18,13,.82) 0%, rgba(27,18,13,.45) 34%, rgba(27,18,13,0) 58%),
+        linear-gradient(to bottom, rgba(27,18,13,.55) 0%, rgba(27,18,13,0) 22%, rgba(27,18,13,0) 62%, rgba(27,18,13,.92) 100%);
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      width: 100%;
+      padding: 0 44px 0 64px;
+      margin-bottom: 128px;
+    }
+    .hero-kicker { color: var(--clay-lt); margin-bottom: 22px; display: flex; align-items: center; gap: 14px; }
+    .hero-kicker::before { content: ''; width: 36px; height: 2px; background: var(--clay); }
+
+    .hero-name {
+      font-family: var(--display);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: .84;
+      letter-spacing: 1px;
+      font-size: clamp(64px, 8.8vw, 150px);
+      text-shadow: 0 4px 40px rgba(0,0,0,.45);
+    }
+    /* each word sits one step further right — a staircase */
+    .hero-name .step { display: block; }
+    .hero-name .step:nth-child(2) { padding-left: .55em; color: var(--clay); }
+
+    .hero-tag {
+      margin-top: 26px;
+      max-width: 430px;
+      font-size: 18px;
+      color: rgba(239,226,208,.86);
+    }
+
+    .hero-actions { display: flex; gap: 14px; margin-top: 34px; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 15px 30px;
+      font-family: var(--mono);
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      border: 1px solid var(--clay);
+      background: transparent;
+      color: var(--sand);
+      cursor: pointer;
+      transition: background .25s, color .25s, border-color .25s;
+    }
+    .btn:hover { background: var(--clay); color: var(--shade); }
+    .btn.fill { background: var(--clay); color: var(--shade); }
+    .btn.fill:hover { background: var(--clay-lt); border-color: var(--clay-lt); }
+    .btn svg { width: 14px; height: 14px; fill: currentColor; }
+
+    /* fact strip across the bottom of the hero */
+    .fact-strip {
+      position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid rgba(239,226,208,.18);
+      background: rgba(27,18,13,.55);
+      backdrop-filter: blur(6px);
+    }
+    .fact { padding: 18px 28px; border-right: 1px solid rgba(239,226,208,.12); }
+    .fact:last-child { border-right: 0; }
+    .fact .mono { font-size: 10.5px; color: var(--stone); display: block; margin-bottom: 4px; }
+    .fact strong { font-family: var(--display); font-weight: 700; font-size: 22px; letter-spacing: 1.5px; text-transform: uppercase; }
+
+    /* ============================================================
+       SHARED SECTION STYLE
+    ============================================================ */
+    section { position: relative; }
+    .wrap { max-width: 1200px; margin: 0 auto; }
+
+    .tier-label {
+      display: flex; align-items: center; gap: 14px;
+      color: var(--clay-lt);
+      margin-bottom: 18px;
+    }
+    .tier-label b { font-weight: 500; color: var(--sand); }
+    .tier-label::after { content: ''; flex: 0 0 60px; height: 1px; background: rgba(209,154,53,.5); }
+
+    .heading {
+      font-family: var(--display);
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: clamp(44px, 6vw, 84px);
+      line-height: .92;
+      letter-spacing: .5px;
+    }
+    .heading em { font-style: normal; color: var(--clay); }
+
+    /* staircase divider between sections */
+    .stairs {
+      height: 48px;
+      background:
+        linear-gradient(var(--shade-2), var(--shade-2)) 0 100% / 100% 12px no-repeat,
+        linear-gradient(var(--shade-2), var(--shade-2)) 0 100% / 75% 24px no-repeat,
+        linear-gradient(var(--shade-2), var(--shade-2)) 0 100% / 50% 36px no-repeat,
+        linear-gradient(var(--shade-2), var(--shade-2)) 0 100% / 25% 48px no-repeat;
+    }
+    .stairs.rev { transform: scaleX(-1); }
+    .stairs.to-shade {
+      background:
+        linear-gradient(var(--shade), var(--shade)) 0 100% / 100% 12px no-repeat,
+        linear-gradient(var(--shade), var(--shade)) 0 100% / 75% 24px no-repeat,
+        linear-gradient(var(--shade), var(--shade)) 0 100% / 50% 36px no-repeat,
+        linear-gradient(var(--shade), var(--shade)) 0 100% / 25% 48px no-repeat;
+      background-color: var(--shade-2);
+    }
+
+    /* reveal on scroll */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* ============================================================
+       MUSIC — TIERS
+    ============================================================ */
+    #music { background: var(--shade-2); padding: 110px 64px 120px; }
+
+    .music-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .cover-wrap { position: relative; }
+    /* offset stepped frame behind the cover */
+    .cover-wrap::before, .cover-wrap::after {
+      content: ''; position: absolute; border: 1px solid rgba(209,154,53,.45);
+    }
+    .cover-wrap::before { inset: 18px -18px -18px 18px; }
+    .cover-wrap::after  { inset: 36px -36px -36px 36px; border-color: rgba(209,154,53,.2); }
+    .cover {
+      position: relative; z-index: 1;
+      aspect-ratio: 1;
+      overflow: hidden;
+      background:
+        url('strukturedfacts_tiers_cover.jpg') center / cover no-repeat,
+        url('strukturedfacts_hero.jpg') 64% 40% / auto 135% no-repeat,
+        var(--shade-3);
+      box-shadow: 0 30px 70px rgba(0,0,0,.45);
+    }
+    .cover-title {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      padding: 26px 28px;
+      background: linear-gradient(to top, rgba(27,18,13,.92), rgba(27,18,13,0));
+      font-family: var(--display); font-weight: 900; font-size: 64px; line-height: .9;
+      letter-spacing: 6px; text-transform: uppercase;
+    }
+    .cover-title small { display: block; font-family: var(--mono); font-size: 11px; font-weight: 400; letter-spacing: 3px; color: var(--clay-lt); margin-top: 6px; }
+    /* hide the text overlay automatically once the real cover file is in place */
+    .cover.has-art .cover-title { display: none; }
+
+    .release-meta { display: flex; gap: 10px; flex-wrap: wrap; margin: 26px 0 24px; }
+    .chip {
+      font-family: var(--mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      border: 1px solid rgba(209,154,53,.5); color: var(--clay-lt);
+      padding: 5px 12px;
+    }
+
+    .music-copy p { color: rgba(239,226,208,.78); max-width: 470px; margin-bottom: 18px; }
+
+    .listen-label { color: var(--stone); font-size: 11px; margin-top: 30px; }
+    .stream-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+    .stream {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 12px 20px;
+      border: 1px solid var(--line);
+      background: rgba(239,226,208,.04);
+      font-family: var(--mono); font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+    .stream svg { width: 16px; height: 16px; fill: currentColor; }
+    .stream:hover { border-color: var(--clay); color: var(--clay-lt); background: rgba(209,154,53,.08); }
+
+    /* the album, tier by tier */
+    .tier-list { margin-top: 110px; }
+    .tier-list-head {
+      display: flex; justify-content: space-between; align-items: flex-end; gap: 20px;
+      padding-bottom: 22px; border-bottom: 1px solid var(--line);
+    }
+    .tier-list-head h3 { font-family: var(--display); font-weight: 800; font-size: 38px; text-transform: uppercase; letter-spacing: 1px; }
+    .tier-list-head .mono { color: var(--stone); }
+
+    .track {
+      display: grid; grid-template-columns: 64px 1fr auto;
+      align-items: center; gap: 20px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+      transition: padding-left .25s, background .25s;
+    }
+    .track:hover { padding-left: 14px; background: rgba(209,154,53,.06); }
+    .track-num { font-family: var(--mono); font-size: 13px; color: var(--clay); }
+    .track-title { font-family: var(--display); font-weight: 700; font-size: 26px; letter-spacing: 1px; text-transform: uppercase; }
+    .track-dur { font-family: var(--mono); font-size: 13px; color: var(--stone); }
+    .track.tbd .track-title { color: rgba(239,226,208,.38); }
+
+
+    /* discography */
+    .disco { margin-top: 110px; }
+    .disco-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; margin-top: 34px; }
+    .album { display: grid; grid-template-columns: 200px minmax(0,1fr); gap: 26px; align-items: center;
+      padding: 22px; border: 1px solid var(--line); background: rgba(239,226,208,.03); transition: border-color .25s, background .25s; }
+    .album:hover { border-color: rgba(209,154,53,.5); background: rgba(209,154,53,.05); }
+    .album-art { aspect-ratio: 1; background-color: var(--shade-3); background-size: cover; background-position: center; box-shadow: 0 16px 36px rgba(0,0,0,.4); position: relative; }
+    .album-art.tiers { background-image: url('strukturedfacts_tiers_cover.jpg'), url('strukturedfacts_hero.jpg'); background-size: cover, auto 135%; background-position: center, 64% 40%; }
+    .album-art.tiers span { position: absolute; left: 12px; bottom: 10px; font-family: var(--display); font-weight: 900; font-size: 34px; letter-spacing: 4px; text-transform: uppercase; text-shadow: 0 2px 14px rgba(0,0,0,.6); }
+    .album-art.tiers.has-art span { display: none; }
+    .album-art.ho { background-image: url('honest_observations_cover.jpg'); }
+    .album .mono { color: var(--clay-lt); font-size: 11px; }
+    .album h4 { font-family: var(--display); font-weight: 800; font-size: 34px; line-height: 1; text-transform: uppercase; letter-spacing: .5px; margin: 8px 0 10px; }
+    .album p { color: var(--stone); font-size: 15px; line-height: 1.5; }
+
+    /* ============================================================
+       ABOUT
+    ============================================================ */
+    #about { background: var(--shade); padding: 120px 64px; }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 90px;
+      align-items: center;
+    }
+    .portrait {
+      position: relative;
+      height: 600px;
+      background: url('strukturedfacts_hero.jpg') 63% 30% / auto 150% no-repeat;
+      filter: saturate(.92);
+    }
+    .portrait::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(27,18,13,.75), rgba(27,18,13,0) 45%);
+    }
+    .portrait-cap {
+      position: absolute; left: 22px; bottom: 20px; z-index: 1;
+      color: var(--sand);
+    }
+    .portrait-frame { position: relative; }
+    .portrait-frame::before {
+      content: ''; position: absolute; inset: -20px 20px 20px -20px;
+      border: 1px solid rgba(209,154,53,.4);
+    }
+
+    .about-copy p { color: rgba(239,226,208,.8); margin-bottom: 20px; max-width: 620px; }
+    .about-copy .divider { width: 64px; height: 3px; background: var(--clay); margin: 30px 0; }
+
+    .pull {
+      margin: 36px 0;
+      font-family: var(--display); font-weight: 700;
+      font-size: clamp(28px, 3vw, 40px); line-height: 1.08;
+      text-transform: uppercase; letter-spacing: .5px;
+      color: var(--sand);
+      padding-left: 26px;
+      border-left: 3px solid var(--clay);
+    }
+
+    /* fact sheet */
+    .factsheet { margin-top: 40px; border-top: 1px solid var(--line); }
+    .factsheet div {
+      display: grid; grid-template-columns: 160px 1fr; gap: 20px;
+      padding: 14px 0; border-bottom: 1px solid var(--line);
+    }
+    .factsheet dt { font-family: var(--mono); font-size: 11.5px; letter-spacing: 2px; text-transform: uppercase; color: var(--clay-lt); padding-top: 3px; }
+    .factsheet dd { color: var(--sand); }
+
+    /* ============================================================
+       CONTACT
+    ============================================================ */
+    #contact { background: var(--shade-2); padding: 120px 64px; }
+
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.1fr; gap: 90px; align-items: start;
+    }
+    .contact-copy p { color: rgba(239,226,208,.78); margin: 24px 0 36px; max-width: 440px; }
+
+    .contact-lines { display: grid; gap: 22px; }
+    .contact-lines .mono { color: var(--clay-lt); font-size: 11px; display: block; margin-bottom: 3px; }
+    .contact-lines a, .contact-lines span.val { font-family: var(--display); font-weight: 700; font-size: 26px; letter-spacing: .5px; transition: color .2s; }
+    .contact-lines a:hover { color: var(--clay-lt); }
+
+    .contact-form {
+      display: grid; gap: 18px;
+      padding: 40px;
+      background: var(--shade);
+      border: 1px solid rgba(209,154,53,.22);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .field { display: grid; gap: 8px; }
+    .field label { font-family: var(--mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--clay-lt); }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      background: rgba(239,226,208,.04);
+      border: 1px solid var(--line);
+      color: var(--sand);
+      font: 16px/1.5 var(--body);
+      padding: 13px 15px;
+      border-radius: 0;
+      transition: border-color .2s, background .2s;
+    }
+    .field select { appearance: none; cursor: pointer;
+      background-image: linear-gradient(45deg, transparent 50%, var(--clay) 50%), linear-gradient(135deg, var(--clay) 50%, transparent 50%);
+      background-position: calc(100% - 20px) 55%, calc(100% - 14px) 55%;
+      background-size: 6px 6px; background-repeat: no-repeat;
+    }
+    .field select option { background: var(--shade); }
+    .field textarea { min-height: 140px; resize: vertical; }
+    .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--clay); background: rgba(209,154,53,.06); }
+    .field ::placeholder { color: rgba(239,226,208,.3); }
+    .form-note { font-size: 14px; color: var(--stone); }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer { background: #120c08; padding: 70px 64px 30px; border-top: 1px solid rgba(209,154,53,.2); }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; margin-bottom: 52px; }
+    .footer-grid h4 { font-family: var(--mono); font-weight: 500; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--clay-lt); margin-bottom: 18px; }
+    .footer-grid p { color: var(--stone); font-size: 15px; max-width: 300px; margin-top: 16px; }
+    .footer-links { list-style: none; display: grid; gap: 10px; }
+    .footer-links a { color: var(--stone); font-size: 15px; transition: color .2s; }
+    .footer-links a:hover { color: var(--sand); }
+    .footer-socials { display: flex; gap: 10px; }
+    .footer-socials a {
+      width: 40px; height: 40px; display: grid; place-items: center;
+      border: 1px solid rgba(209,154,53,.35); color: var(--stone);
+      transition: border-color .2s, color .2s;
+    }
+    .footer-socials a:hover { border-color: var(--clay); color: var(--clay-lt); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+      padding-top: 24px; border-top: 1px solid var(--line);
+      font-family: var(--mono); font-size: 11px; letter-spacing: 1.5px; color: rgba(239,226,208,.35);
+    }
+    .footer-bottom a:hover { color: var(--clay-lt); }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .music-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 60px; }
+      .cover-wrap { max-width: 520px; }
+      .portrait-frame { max-width: 460px; }
+      .portrait { height: 520px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links {
+        position: fixed; top: var(--nav-h); left: 0; width: 100%;
+        height: calc(100vh - var(--nav-h));
+        flex-direction: column; justify-content: center; align-items: center; gap: 34px;
+        background: rgba(27,18,13,.98);
+        transform: translateX(-100%); transition: transform .4s ease;
+      }
+      .nav-links.open { transform: none; }
+      .nav-links a { font-size: 15px; }
+      .nav-socials { display: none; }
+      .hamburger { display: flex; }
+
+      .hero-bg { background-position: 66% center; }
+      .hero-overlay { background: linear-gradient(to bottom, rgba(27,18,13,.5) 0%, rgba(27,18,13,0) 25%, rgba(27,18,13,.35) 50%, rgba(27,18,13,.95) 82%); }
+      .hero-content { padding: 0 22px; margin-bottom: 44px; }
+      .hero-bg { background-position: 66% top; }
+      .hero-tag { font-size: 16px; }
+      .fact-strip { display: none; }
+      .hero-actions .btn { padding: 14px 20px; }
+
+      #music, #about, #contact { padding: 84px 22px; }
+      .cover-wrap::after { display: none; }
+      .cover-wrap::before { inset: 12px -12px -12px 12px; }
+      .tier-list, .disco { margin-top: 80px; }
+      .disco-grid { grid-template-columns: 1fr; gap: 20px; }
+      .album { grid-template-columns: 110px minmax(0,1fr); gap: 18px; padding: 16px; }
+      .album h4 { font-size: 26px; }
+      .album-art.tiers span { font-size: 22px; }
+      .track { grid-template-columns: 44px 1fr auto; gap: 12px; }
+      .track-title { font-size: 21px; }
+      .portrait { height: 440px; }
+      .factsheet div { grid-template-columns: 1fr; gap: 2px; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form { padding: 26px 20px; }
+      footer { padding: 56px 22px 26px; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .hero-bg { animation: none; transform: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+============================================================ -->
+<nav id="nav" aria-label="Main">
+  <a href="#home" class="logo" aria-label="Struktured Facts — home">
+    <span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span>Stru<span class="k">k</span>tured Facts</span>
+  </a>
+
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#home" class="active" data-section="home">Home</a></li>
+    <li><a href="#music" data-section="music">Music</a></li>
+    <li><a href="#about" data-section="about">About</a></li>
+    <li><a href="#contact" data-section="contact">Contact</a></li>
+    <li><a href="https://purposewaveent.com/">Purpose Wave</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <div class="nav-socials">
+      <a href="https://www.youtube.com/channel/UCtb9hTidem_KW5eize42-Fw" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.2 31.2 0 0 0 0 12a31.2 31.2 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1 31.2 31.2 0 0 0 .5-5.8 31.2 31.2 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
+      <a href="https://open.spotify.com/artist/5F8UdgEqLpMgBLA39DVdlZ?si=VgDPnpPFRpGM1jssdm6fAw" target="_blank" rel="noopener" aria-label="Spotify"><svg viewBox="0 0 24 24"><path d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24zm5.52 17.34a.75.75 0 0 1-1.02.24c-2.82-1.74-6.36-2.1-10.56-1.14a.75.75 0 1 1-.36-1.44c4.56-1.02 8.52-.6 11.64 1.32.36.24.48.66.3 1.02zm1.44-3.3a.94.94 0 0 1-1.26.3c-3.24-1.98-8.16-2.58-11.94-1.38a.94.94 0 1 1-.54-1.74c4.38-1.32 9.78-.66 13.5 1.62.36.18.54.78.24 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.3a1.13 1.13 0 1 1-.66-2.1c4.26-1.26 11.28-1.02 15.72 1.62a1.12 1.12 0 0 1-1.14 1.86z"/></svg></a>
+      <a href="https://music.apple.com/us/artist/struktured-fact/6791040550" target="_blank" rel="noopener" aria-label="Apple Music"><svg viewBox="0 0 24 24"><path d="M16.37 1.43c0 1.14-.42 2.2-1.24 3.07-.98 1.03-2.16 1.63-3.45 1.53a3.4 3.4 0 0 1-.03-.42c0-1.1.48-2.27 1.33-3.2.42-.47.96-.86 1.62-1.17.65-.3 1.27-.47 1.85-.5.02.23.03.46.03.69zm4.5 16.24c-.36.84-.79 1.6-1.29 2.3-.68.96-1.24 1.62-1.67 1.99-.67.6-1.39.92-2.16.94-.55 0-1.22-.16-2-.48-.78-.32-1.5-.48-2.15-.48-.69 0-1.42.16-2.21.48-.79.32-1.42.49-1.91.5-.74.04-1.48-.29-2.21-.96-.47-.4-1.05-1.09-1.75-2.08a14.7 14.7 0 0 1-1.85-3.67A13.5 13.5 0 0 1 .9 11.9c0-1.6.35-2.98 1.04-4.13a6.1 6.1 0 0 1 2.18-2.2 5.87 5.87 0 0 1 2.95-.83c.58 0 1.34.18 2.28.53.94.35 1.54.53 1.8.53.2 0 .88-.21 2.03-.63 1.09-.39 2.01-.55 2.76-.49 2.04.17 3.58.97 4.6 2.42-1.83 1.11-2.73 2.66-2.71 4.65.02 1.55.58 2.84 1.68 3.86.5.47 1.05.84 1.67 1.1-.13.39-.28.77-.43 1.13z"/></svg></a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section id="home">
+  <div class="hero-bg" role="img" aria-label="Struktured Facts seated on sunlit terracotta steps"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <p class="hero-kicker mono">New Album · TIERS · Out Now</p>
+    <h1 class="hero-name"><span class="step">Struktured</span><span class="step">Facts</span></h1>
+    <p class="hero-tag">Every bar built on something real. Every level earned, one step at a time.</p>
+    <div class="hero-actions">
+      <a href="#music" class="btn fill">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="6 3 20 12 6 21"/></svg>
+        Listen to TIERS
+      </a>
+      <a href="#about" class="btn">The Artist</a>
+    </div>
+  </div>
+
+  <div class="fact-strip" aria-label="Quick facts">
+    <div class="fact"><span class="mono">Latest</span><strong>TIERS</strong></div>
+    <div class="fact"><span class="mono">Type</span><strong>Album · 20 Tracks</strong></div>
+    <div class="fact"><span class="mono">Genre</span><strong>Hip-Hop</strong></div>
+    <div class="fact"><span class="mono">Label</span><strong>Purpose Wave Ent.</strong></div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     MUSIC
+============================================================ -->
+<div class="stairs" aria-hidden="true"></div>
+<section id="music">
+  <div class="wrap">
+    <div class="music-grid">
+      <div class="cover-wrap reveal">
+        <!-- Drop the album art into the same folder as "strukturedfacts_tiers_cover.jpg".
+             Until it's there, a crop of the hero photo with the album title stands in. -->
+        <div class="cover" id="cover" role="img" aria-label="TIERS by Struktured Facts — album cover">
+          <div class="cover-title">Tiers<small>Struktured Facts</small></div>
+        </div>
+      </div>
+
+      <div class="music-copy reveal">
+        <p class="tier-label mono"><b>Tier 01</b> The Music</p>
+        <h2 class="heading">Tiers<br><em>Out Now</em></h2>
+        <div class="release-meta">
+          <span class="chip">Album</span>
+          <span class="chip">20 Tracks</span>
+          <span class="chip">2026</span>
+          <span class="chip">Purpose Wave Entertainment</span>
+        </div>
+        <p>TIERS is a climb. Each record is a level — where he started, what it cost to rise, and what's waiting at the top for anyone willing to take the stairs instead of looking for an elevator.</p>
+        <p>No shortcuts, no filler. Just facts, laid down in order.</p>
+
+        <p class="listen-label mono">Listen on</p>
+        <div class="stream-row">
+          <a href="https://open.spotify.com/artist/5F8UdgEqLpMgBLA39DVdlZ?si=VgDPnpPFRpGM1jssdm6fAw" target="_blank" rel="noopener" class="stream">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24zm5.52 17.34a.75.75 0 0 1-1.02.24c-2.82-1.74-6.36-2.1-10.56-1.14a.75.75 0 1 1-.36-1.44c4.56-1.02 8.52-.6 11.64 1.32.36.24.48.66.3 1.02zm1.44-3.3a.94.94 0 0 1-1.26.3c-3.24-1.98-8.16-2.58-11.94-1.38a.94.94 0 1 1-.54-1.74c4.38-1.32 9.78-.66 13.5 1.62.36.18.54.78.24 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.3a1.13 1.13 0 1 1-.66-2.1c4.26-1.26 11.28-1.02 15.72 1.62a1.12 1.12 0 0 1-1.14 1.86z"/></svg>
+            Spotify
+          </a>
+          <a href="https://music.apple.com/us/artist/struktured-fact/6791040550" target="_blank" rel="noopener" class="stream">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 1.43c0 1.14-.42 2.2-1.24 3.07-.98 1.03-2.16 1.63-3.45 1.53a3.4 3.4 0 0 1-.03-.42c0-1.1.48-2.27 1.33-3.2.42-.47.96-.86 1.62-1.17.65-.3 1.27-.47 1.85-.5.02.23.03.46.03.69zm4.5 16.24c-.36.84-.79 1.6-1.29 2.3-.68.96-1.24 1.62-1.67 1.99-.67.6-1.39.92-2.16.94-.55 0-1.22-.16-2-.48-.78-.32-1.5-.48-2.15-.48-.69 0-1.42.16-2.21.48-.79.32-1.42.49-1.91.5-.74.04-1.48-.29-2.21-.96-.47-.4-1.05-1.09-1.75-2.08a14.7 14.7 0 0 1-1.85-3.67A13.5 13.5 0 0 1 .9 11.9c0-1.6.35-2.98 1.04-4.13a6.1 6.1 0 0 1 2.18-2.2 5.87 5.87 0 0 1 2.95-.83c.58 0 1.34.18 2.28.53.94.35 1.54.53 1.8.53.2 0 .88-.21 2.03-.63 1.09-.39 2.01-.55 2.76-.49 2.04.17 3.58.97 4.6 2.42-1.83 1.11-2.73 2.66-2.71 4.65.02 1.55.58 2.84 1.68 3.86.5.47 1.05.84 1.67 1.1-.13.39-.28.77-.43 1.13z"/></svg>
+            Apple Music
+          </a>
+          <a href="https://music.youtube.com/channel/UCtb9hTidem_KW5eize42-Fw" target="_blank" rel="noopener" class="stream">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.2 31.2 0 0 0 0 12a31.2 31.2 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1 31.2 31.2 0 0 0 .5-5.8 31.2 31.2 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+            YouTube Music
+          </a>
+          <a href="https://music.amazon.com/artists/B0H8Y5DVMR?ref=dm_sh_OLVyrTCADNupuiFS4yN1abdSd" target="_blank" rel="noopener" class="stream">
+            Amazon Music
+          </a>
+          <a href="https://tidal.com/artist/82751562/u" target="_blank" rel="noopener" class="stream">
+            Tidal
+          </a>
+          <a href="https://www.deezer.com/en/artist/403732412" target="_blank" rel="noopener" class="stream">
+            Deezer
+          </a>
+          <a href="https://www.iheart.com/artist/struktured-fact-51401259/" target="_blank" rel="noopener" class="stream">
+            iHeartRadio
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tracklist -->
+    <div class="tier-list reveal">
+      <div class="tier-list-head">
+        <h3>The Tracklist</h3>
+        <span class="mono">20 Tracks · 95 Min</span>
+      </div>
+      <div class="track"><span class="track-num">01</span><span class="track-title">TIERS</span><span class="track-dur">4:25</span></div>
+      <div class="track"><span class="track-num">02</span><span class="track-title">Borrowed Letters — The Counterfeit Brotherhood</span><span class="track-dur">4:41</span></div>
+      <div class="track"><span class="track-num">03</span><span class="track-title">Trying Times (Read Between the Lines)</span><span class="track-dur">4:52</span></div>
+      <div class="track"><span class="track-num">04</span><span class="track-title">Not on My Watch</span><span class="track-dur">5:03</span></div>
+      <div class="track"><span class="track-num">05</span><span class="track-title">Gods Withe Blue Check</span><span class="track-dur">5:16</span></div>
+      <div class="track"><span class="track-num">06</span><span class="track-title">The Rent Comes Due</span><span class="track-dur">5:57</span></div>
+      <div class="track"><span class="track-num">07</span><span class="track-title">Armor Made of Negativity</span><span class="track-dur">4:16</span></div>
+      <div class="track"><span class="track-num">08</span><span class="track-title">They (Them)</span><span class="track-dur">4:23</span></div>
+      <div class="track"><span class="track-num">09</span><span class="track-title">Uncommon Sense</span><span class="track-dur">5:05</span></div>
+      <div class="track"><span class="track-num">10</span><span class="track-title">Watch Out</span><span class="track-dur">4:12</span></div>
+      <div class="track"><span class="track-num">11</span><span class="track-title">Too Much Going</span><span class="track-dur">4:11</span></div>
+      <div class="track"><span class="track-num">12</span><span class="track-title">Trying Times</span><span class="track-dur">4:58</span></div>
+      <div class="track"><span class="track-num">13</span><span class="track-title">Business of Betrayal</span><span class="track-dur">5:41</span></div>
+      <div class="track"><span class="track-num">14</span><span class="track-title">Homecoming</span><span class="track-dur">5:00</span></div>
+      <div class="track"><span class="track-num">15</span><span class="track-title">The Model</span><span class="track-dur">4:02</span></div>
+      <div class="track"><span class="track-num">16</span><span class="track-title">Fork in the Road</span><span class="track-dur">4:46</span></div>
+      <div class="track"><span class="track-num">17</span><span class="track-title">We Can Do This</span><span class="track-dur">5:07</span></div>
+      <div class="track"><span class="track-num">18</span><span class="track-title">Inspect the Gadget</span><span class="track-dur">4:57</span></div>
+      <div class="track"><span class="track-num">19</span><span class="track-title">I Think You Really Believe That</span><span class="track-dur">3:43</span></div>
+      <div class="track"><span class="track-num">20</span><span class="track-title">Peacemaker</span><span class="track-dur">4:12</span></div>
+    </div>
+    <!-- Discography -->
+    <div class="disco reveal">
+      <div class="tier-list-head">
+        <h3>Discography</h3>
+        <span class="mono">2 Albums</span>
+      </div>
+      <div class="disco-grid">
+        <article class="album">
+          <div class="album-art tiers" id="disco-tiers" role="img" aria-label="TIERS album cover"><span>Tiers</span></div>
+          <div>
+            <span class="mono">Latest Album · 2026</span>
+            <h4>Tiers</h4>
+            <p>20 tracks · 95 min</p>
+          </div>
+        </article>
+        <article class="album">
+          <div class="album-art ho" role="img" aria-label="Honest Observations album cover"></div>
+          <div>
+            <span class="mono">Debut Album · July 15, 2026</span>
+            <h4>Honest Observations</h4>
+            <p>16 tracks</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     ABOUT
+============================================================ -->
+<div class="stairs to-shade rev" aria-hidden="true"></div>
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="portrait-frame reveal">
+      <div class="portrait" role="img" aria-label="Portrait of Struktured Facts">
+        <span class="portrait-cap mono">Struktured Facts</span>
+      </div>
+    </div>
+
+    <div class="about-copy reveal">
+      <p class="tier-label mono"><b>Tier 02</b> The Artist</p>
+      <h2 class="heading">Built on<br><em>Facts</em></h2>
+      <div class="divider"></div>
+      <!-- TODO: swap in Struktured Facts' own bio -->
+      <p>Struktured Facts makes music the way you build anything meant to last — from the ground up, with nothing left to chance. His verses are plain-spoken and exact: what happened, what it meant, and what he did about it.</p>
+      <p>Signed to Purpose Wave Entertainment, he treats every song as a level of the same structure. His debut, <em>Honest Observations</em>, arrived in July 2026 — sixteen tracks of seeing clear and speaking truth. <em>TIERS</em> followed the same year: twenty tracks about the climb, told one step at a time.</p>
+      <blockquote class="pull">"You can argue with opinions. You can't argue with facts."</blockquote>
+
+      <dl class="factsheet">
+        <div><dt>Label</dt><dd>Purpose Wave Entertainment</dd></div>
+        <div><dt>Latest Album</dt><dd>TIERS (2026)</dd></div>
+        <div><dt>Debut Album</dt><dd>Honest Observations (July 15, 2026)</dd></div>
+        <div><dt>Genre</dt><dd>Hip-Hop</dd></div>
+        <div><dt>Booking</dt><dd>Via the contact form below</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     CONTACT
+============================================================ -->
+<div class="stairs" aria-hidden="true"></div>
+<section id="contact">
+  <div class="wrap contact-grid">
+    <div class="contact-copy reveal">
+      <p class="tier-label mono"><b>Tier 03</b> Get in Touch</p>
+      <h2 class="heading">Contact &amp;<br><em>Booking</em></h2>
+      <p>Bookings, press, features, or a message for the man himself — send it here. Every message is read.</p>
+      <div class="contact-lines">
+        <div><span class="mono">Email</span><a href="mailto:info@purposewaveradio.com">info@purposewaveradio.com</a></div>
+        <div><span class="mono">Label</span><a href="https://purposewaveent.com/">Purpose Wave Entertainment</a></div>
+      </div>
+    </div>
+
+    <!-- Opens the visitor's email app with the message filled in, addressed to the email above -->
+    <form class="contact-form reveal" id="contact-form">
+      <div class="form-row">
+        <div class="field"><label for="fn">First Name</label><input id="fn" type="text" placeholder="First" required autocomplete="given-name" /></div>
+        <div class="field"><label for="ln">Last Name</label><input id="ln" type="text" placeholder="Last" required autocomplete="family-name" /></div>
+      </div>
+      <div class="field"><label for="em">Email</label><input id="em" type="email" placeholder="you@email.com" required autocomplete="email" /></div>
+      <div class="field">
+        <label for="subj">Subject</label>
+        <select id="subj" required>
+          <option value="" disabled selected>Choose one</option>
+          <option>Booking Inquiry</option>
+          <option>Press / Media</option>
+          <option>Feature / Collaboration</option>
+          <option>Fan Message</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="field"><label for="msg">Message</label><textarea id="msg" placeholder="Your message..." required></textarea></div>
+      <div><button type="submit" class="btn fill">Send Message</button></div>
+      <p class="form-note">Sending opens your email app with this message ready to go.</p>
+    </form>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="#home" class="logo"><span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Stru<span class="k">k</span>tured Facts</span></a>
+      <p>New album TIERS out now. Built on facts, one level at a time.</p>
+    </div>
+    <div>
+      <h4>Navigate</h4>
+      <ul class="footer-links">
+        <li><a href="#music">Music</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="https://purposewaveent.com/">Purpose Wave Entertainment</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Follow</h4>
+      <div class="footer-socials">
+        <a href="https://www.youtube.com/channel/UCtb9hTidem_KW5eize42-Fw" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.2 31.2 0 0 0 0 12a31.2 31.2 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1 31.2 31.2 0 0 0 .5-5.8 31.2 31.2 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
+        <a href="https://open.spotify.com/artist/5F8UdgEqLpMgBLA39DVdlZ?si=VgDPnpPFRpGM1jssdm6fAw" target="_blank" rel="noopener" aria-label="Spotify"><svg viewBox="0 0 24 24"><path d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24zm5.52 17.34a.75.75 0 0 1-1.02.24c-2.82-1.74-6.36-2.1-10.56-1.14a.75.75 0 1 1-.36-1.44c4.56-1.02 8.52-.6 11.64 1.32.36.24.48.66.3 1.02zm1.44-3.3a.94.94 0 0 1-1.26.3c-3.24-1.98-8.160-2.58-11.94-1.38a.94.94 0 1 1-.54-1.74c4.38-1.32 9.78-.66 13.5 1.62.36.18.54.78.24 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.3a1.13 1.13 0 1 1-.66-2.1c4.26-1.26 11.28-1.02 15.72 1.62a1.12 1.12 0 0 1-1.14 1.86z"/></svg></a>
+      <a href="https://music.apple.com/us/artist/struktured-fact/6791040550" target="_blank" rel="noopener" aria-label="Apple Music"><svg viewBox="0 0 24 24"><path d="M16.37 1.43c0 1.14-.42 2.2-1.24 3.07-.98 1.03-2.16 1.63-3.45 1.53a3.4 3.4 0 0 1-.03-.42c0-1.1.48-2.27 1.33-3.2.42-.47.96-.86 1.62-1.17.65-.3 1.27-.47 1.85-.5.02.23.03.46.03.69zm4.5 16.24c-.36.84-.79 1.6-1.29 2.3-.68.96-1.24 1.62-1.67 1.99-.67.6-1.39.92-2.16.94-.55 0-1.22-.16-2-.48-.78-.32-1.5-.48-2.15-.48-.69 0-1.42.16-2.21.48-.79.32-1.42.49-1.91.5-.74.04-1.48-.29-2.21-.96-.47-.4-1.05-1.09-1.75-2.08a14.7 14.7 0 0 1-1.85-3.67A13.5 13.5 0 0 1 .9 11.9c0-1.6.35-2.98 1.04-4.13a6.1 6.1 0 0 1 2.18-2.2 5.87 5.87 0 0 1 2.95-.83c.58 0 1.34.18 2.28.53.94.35 1.54.53 1.8.53.2 0 .88-.21 2.03-.63 1.09-.39 2.01-.55 2.76-.49 2.04.17 3.58.97 4.6 2.42-1.83 1.11-2.73 2.66-2.71 4.65.02 1.55.58 2.84 1.68 3.86.5.47 1.05.84 1.67 1.1-.13.39-.28.77-.43 1.13z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Struktured Facts. All rights reserved.</span>
+    <a href="https://purposewaveent.com/">A Purpose Wave Entertainment artist</a>
+  </div>
+</footer>
+
+
+<script>
+  // Nav turns solid after leaving the hero
+  const nav = document.getElementById('nav');
+  const setNav = () => nav.classList.toggle('solid', window.scrollY > 60);
+  setNav();
+  window.addEventListener('scroll', setNav, { passive: true });
+
+  // Mobile menu
+  const burger = document.getElementById('hamburger');
+  const links = document.getElementById('nav-links');
+  const closeMenu = () => { links.classList.remove('open'); burger.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); };
+  burger.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', String(open));
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+  // Highlight the nav link for the section on screen
+  const navAs = document.querySelectorAll('.nav-links a[data-section]');
+  const spy = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) navAs.forEach(a => a.classList.toggle('active', a.dataset.section === e.target.id));
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('section[id]').forEach(s => spy.observe(s));
+
+  // Fade sections in as they scroll into view
+  const reveal = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); reveal.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => reveal.observe(el));
+
+  // Album cover: once strukturedfacts_tiers_cover.jpg exists, hide the stand-in title
+  const probe = new Image();
+  probe.onload = () => { document.getElementById('cover').classList.add('has-art'); document.getElementById('disco-tiers').classList.add('has-art'); };
+  probe.src = 'strukturedfacts_tiers_cover.jpg';
+
+  // Contact form → opens the visitor's email app, pre-filled
+  document.getElementById('contact-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const v = id => document.getElementById(id).value.trim();
+    const subject = `${v('subj')} — ${v('fn')} ${v('ln')}`;
+    const body = `${v('msg')}\n\n— ${v('fn')} ${v('ln')}\n${v('em')}`;
+    window.location.href = `mailto:info@purposewaveradio.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+</script>
+</body>
+</html>
